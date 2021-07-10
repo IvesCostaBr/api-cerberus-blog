@@ -3,5 +3,5 @@ venv/
 *sqlite3
 *.log
 *.idea
-*.env
+.vEnv
 .env
