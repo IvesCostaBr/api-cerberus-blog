@@ -13,7 +13,7 @@ router.register(r'users', app_blog.UserViewSet, basename='User')
 router.register(r'posts', app_post.PostViewSet, basename='Post')
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('super/', admin.site.urls),
     path('', include(router.urls)),
     path('login/', views.obtain_auth_token)
 ]
