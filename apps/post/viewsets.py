@@ -1,5 +1,11 @@
-from rest_framework.response import Response
-from rest_framework import viewsets, permissions, authentication
+from rest_framework import (
+    viewsets,
+    permissions, 
+    authentication,
+    response,
+    decorators as rest_decoratos 
+    )
+from django.forms import model_to_dict
 from .serializers import PostSerializer
 from .models import Post
 import logging
@@ -7,7 +13,7 @@ import logging
 logger = logging.getLogger('django')
 
 
-class PostViewSet(viewsets.ModelViewSet):
+class PostManagerViewSet(viewsets.ModelViewSet):
     serializer_class = PostSerializer
     authentication_classes = (authentication.TokenAuthentication, )
     permission_classes = (permissions.IsAuthenticated,)
@@ -18,18 +24,24 @@ class PostViewSet(viewsets.ModelViewSet):
         return Post.objects.all()
     
     def create(self, request, *args, **kwargs):
-        Post.objects.create(
-            owner=self.request.user.profile,
-            title=request.POST['title'],
-            text=request.POST['text']
-        )
-        return Response({'STATUS':201})
-    
-    def partial_update(self,request, *args, **kwargs):
-        post = self.get_object()
-        response = post.post_valid(request)
-        return Response(response)
+        return super(PostManagerViewSet, self).create(request, *args, **kwargs)
         
+        # # post = Post.objects.create(
+        # #     owner=self.request.user.profile,
+        # #     title=request.data['title'],
+        # #     text=request.data['text']
+        # # )
+
+        # return response.Response(model_to_dict(post))
+    
+    # def partial_update(self,request, *args, **kwargs):
+    #     # post = self.get_object()
+    #     # response = post.post_valid(request)
+    #     # return response.Response(response)
+    #     return super(PostManagerViewSet, self).partial_update(request, *args, **kwargs)
+        
+    def update(self, request, *args, **kwargs):
+        return super(PostManagerViewSet, self).update(request, *args,)
 
     def destroy(self,request, *args, **kwargs):
         try:
@@ -42,4 +54,18 @@ class PostViewSet(viewsets.ModelViewSet):
         else:
             response = {'STATUS':'you does not owner of this post'}
         
-        return Response(response)
+        return response.Response(response)
+
+
+@rest_decoratos.api_view(['GET'])
+def list_post(request):
+    list = Post.objects.all()[:10]
+    list = list.values()
+    return response.Response(list)
+
+
+
+
+
+
+

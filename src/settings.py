@@ -10,7 +10,7 @@ SECRET_KEY = config('SECRET_KEY')
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'forum-cerberus-api.herokuapp.com']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'forum-cerberus-api.herokuapp.com']
 
 
 DJANGO_APPS = (
@@ -53,7 +53,7 @@ ROOT_URLCONF = 'src.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

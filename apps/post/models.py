@@ -1,5 +1,7 @@
+from apps.category.models import Category
 from django.db import models
 from apps.blog.models import Profile
+from apps.comentary.models import Comentary
 
 
 class Post(models.Model):
@@ -13,6 +15,9 @@ class Post(models.Model):
     date_creation = models.DateTimeField(auto_now_add=True)
     title = models.CharField(max_length=120)
     text =  models.TextField()
+    comentarys = models.ManyToManyField(Comentary, 
+    blank=True)
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
     status = models.BooleanField(choices=STATUS_POST, default=True)
     
     @property

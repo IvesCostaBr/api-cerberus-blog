@@ -9,10 +9,11 @@ class Comentary(models.Model):
     ]
 
     owner = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True)
-    title = models.CharField(max_length=40)
-    text = models.TextField()
+    head = models.CharField(max_length=40)
+    txt = models.TextField()
+    date = models.DateField(auto_now_add=True)
     status = models.BooleanField(default=True, choices=STATUS)
 
 
     def __str__(self):
-        return f'%s' % (str(self.owner) ,str(self.title)) 
+        return f'%s -> %s' % (str(self.owner) ,str(self.head)) 
