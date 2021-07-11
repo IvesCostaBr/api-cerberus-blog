@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-from rest_framework import viewsets, response, permissions, authentication
+from rest_framework import viewsets, response, permissions, authentication, decorators
 from .serializers import ProfileSerializer, UserSerializer
 from .models import Profile
 
@@ -17,9 +17,8 @@ class ProfileViewSet(viewsets.ModelViewSet):
 class UserViewSet(viewsets.ModelViewSet):
    
     serializer_class = UserSerializer
-    permission_classes = (permissions.IsAuthenticated, )
-    authentication_classes = (authentication.TokenAuthentication,)
-    http_method_names = ['POST', 'GET', 'PATH']
+    # permission_classes = (permissions.IsAuthenticated, )
+    # authentication_classes = (authentication.TokenAuthentication,)
 
     def get_queryset(self):
         return User.objects.all()
@@ -31,5 +30,17 @@ class UserViewSet(viewsets.ModelViewSet):
         )
         return response.Response({'status':'CREATED'})
 
+  
     def partial_update(self,request, *args, **kwargs):
         print('Entrei no path')
+
+    @decorators.api_view(['GET'])
+    def delete_all(self, request):
+        User.objects.all().delete()
+        return response.Response({'status':'ALL DELETED'})
+
+
+    
+
+
+
