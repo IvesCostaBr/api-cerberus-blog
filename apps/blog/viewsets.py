@@ -34,7 +34,7 @@ class UserViewSet(viewsets.ModelViewSet):
     def partial_update(self,request, *args, **kwargs):
         print('Entrei no path')
 
-    @decorators.api_view(['GET'])
+    @decorators.action(['GET'], detail=False)
     def delete_all(self, request):
         User.objects.all().delete()
         return response.Response({'status':'ALL DELETED'})
