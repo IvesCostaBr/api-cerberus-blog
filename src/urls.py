@@ -22,6 +22,6 @@ urlpatterns = [
     path('', include(router.urls)),
     path('login/', views.obtain_auth_token),
     path('list_post/', app_post.list_post),
-    
+    path('detail_post/<int:id>/', app_post.detail_post)
 
 ]

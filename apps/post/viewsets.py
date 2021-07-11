@@ -5,7 +5,7 @@ from rest_framework import (
     response,
     decorators as rest_decoratos 
     )
-from django.forms import model_to_dict
+from django.core import serializers
 from .serializers import PostSerializer
 from .models import Post
 import logging
@@ -75,6 +75,12 @@ def list_post(request):
     list = list.values()
     return response.Response(list)
 
+@rest_decoratos.api_view(['GET'])
+def detail_post(request, id): 
+    print(request.user) 
+    json_response = PostSerializer(Post.objects.get(id=id)).data
+    return response.Response(json_response)
+    
 
 
 

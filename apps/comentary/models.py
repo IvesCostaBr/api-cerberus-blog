@@ -15,4 +15,4 @@ class Comentary(models.Model):
 
 
     def __str__(self):
-        return f'%s -> %s' % (str(self.owner) ,str(self.head)) 
+        return f'%s' % (str(self.owner))
