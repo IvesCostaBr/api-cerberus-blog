@@ -17,7 +17,7 @@ class Post(models.Model):
     text =  models.TextField()
     comentarys = models.ManyToManyField(Comentary, 
     blank=True)
-    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL, blank=True ,null=True)
     status = models.BooleanField(choices=STATUS_POST, default=True)
     
     @property

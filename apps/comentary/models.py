@@ -9,8 +9,7 @@ class Comentary(models.Model):
     ]
 
     owner = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True)
-    head = models.CharField(max_length=40)
-    txt = models.TextField()
+    comment = models.TextField()
     date = models.DateField(auto_now_add=True)
     status = models.BooleanField(default=True, choices=STATUS)
 

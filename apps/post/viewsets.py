@@ -24,6 +24,8 @@ class PostManagerViewSet(viewsets.ModelViewSet):
         return Post.objects.all()
     
     def create(self, request, *args, **kwargs):
+        user_request = request.user
+        self.kwargs['user'] = user_request
         return super(PostManagerViewSet, self).create(request, *args, **kwargs)
         
         # # post = Post.objects.create(
@@ -55,6 +57,16 @@ class PostManagerViewSet(viewsets.ModelViewSet):
             response = {'STATUS':'you does not owner of this post'}
         
         return response.Response(response)
+
+    @rest_decoratos.action(methods=['GET'],detail=False)
+    def delete_all_posts(self, request):
+        if self.request.user.is_authenticated:
+            Post.objects.all().delete()
+            resp = {'STATUS':'OK'}
+        else:
+            resp = {'STATUS':'You dont have permission for run tihs action'}
+        
+        return response.Response(resp)
 
 
 @rest_decoratos.api_view(['GET'])

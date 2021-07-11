@@ -18,7 +18,6 @@ class PostSerializer(serializers.ModelSerializer):
             'comentarys',
             'category'
         )
-        read_only_fields = ['category',]
 
     def create_comments(self, post, comentarys):
         for comentary in comentarys:
@@ -41,7 +40,9 @@ class PostSerializer(serializers.ModelSerializer):
         comentarys = validated_data['comentarys']
         del validated_data['comentarys']
         self.create_comments(instance, comentarys)
-        return instance
+        
+
+        return super(PostSerializer, self).update(instance, validated_data)
 
         
 

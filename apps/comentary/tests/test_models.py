@@ -11,8 +11,7 @@ class ComentaryTestCase(TestCase):
         )
         Comentary.objects.create(
             owner=user.profile,
-            title='test',
-            text='test'
+            txt='test'
         )
         self.assertEqual(User.objects.last().profile, user.profile)
 
